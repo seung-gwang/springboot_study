@@ -18,4 +18,8 @@ CrudRepository<FreeBoardReply, Long>
 	
 	//규칙에 맞는 함수 추상 메서드 선언하기 (구현은 알아서 해줌)
 	List<FreeBoardReply> findByBoard(FreeBoard board);
+	
+	
+	
+	
 }

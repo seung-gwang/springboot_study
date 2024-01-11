@@ -1,21 +1,28 @@
 package com.shinhan.sbproject;
 
+import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 
+import com.querydsl.core.BooleanBuilder;
 import com.shinhan.firstzone.repository.FreeBoardReplyRepository;
 import com.shinhan.firstzone.repository.FreeBoardRepository;
 import com.shinhan.sbproject.vo3.FreeBoard;
 import com.shinhan.sbproject.vo3.FreeBoardReply;
+import com.shinhan.sbproject.vo3.QFreeBoard;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -27,7 +34,49 @@ public class TwoWayTest {
 	@Autowired
 	FreeBoardReplyRepository replyRepo; 
 	
-	@Test
+	@Transactional
+	@Test //QueryDSL
+	void f5() {
+		String title ="니다";
+		BooleanBuilder builder = new BooleanBuilder();
+		QFreeBoard board = QFreeBoard.freeBoard;
+		
+		
+		//if (title != null) {...};
+		builder.and(board.title.like("%"+title+"%"));
+		boardRepo.findAll(builder).forEach(b->log.info(b.toString()));
+		
+		//Sort, FindAll
+		boardRepo.findAll(builder, Sort.by(Direction.DESC, "bno")).forEach(b->log.info(b.toString()));
+
+		//Page
+		Pageable page = PageRequest.of(0, 5, Direction.DESC, "bno");
+		boardRepo.findAll(builder, page).getContent().forEach(b->log.info(b.toString()));
+		
+		Page<FreeBoard> result = boardRepo.findAll(builder, page);
+		log.info("건수 --->", result.getTotalElements());
+		
+		
+		
+	}
+	
+	//@Test
+	void f4() {
+		String title = "입니다";
+		boardRepo.selectByTitle(title).forEach(b->log.info(Arrays.toString(b)));
+		log.info("#################################");
+		
+		boardRepo.selectByTitle2(title).forEach(b->log.info(Arrays.toString(b)));
+		log.info("#################################");
+		
+		boardRepo.selectByTitle3(title).forEach(b->log.info(Arrays.toString(b)));
+		log.info("#################################");
+		
+		
+		
+	}
+	
+	//@Test
 	void findByWriterTest() {
 		Pageable paging = PageRequest.of(0, 10, Sort.by("regdate").descending());
 		String yongsu = "용수";

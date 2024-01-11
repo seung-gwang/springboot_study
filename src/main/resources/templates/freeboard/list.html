@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.hotpink {background-color : hotpink;}
+	.skyblue {background-color : skyblue;}
+	.yellow {background-color : yellow;}
+	.blue {background-color : blue;}
+</style>
+</head>
+<body>
+	<h1> free board 목록^_^</h1>
+	<h2 th:text="${@environment.getProperty('app.title')}"></h2>
+	<h2 th:text="${@environment.getProperty('server.port')}"></h2>
+	<table border="1" th:with="target=${loginUser}, friend=${myFriend}">
+		<tr>
+			<th>idx - count - size</th>
+			<th>first last odd even</th>
+			<th>글번호</th> <th>제목</th> <th>작성자</th> <th>내용</th> <th>등록일</th> <th>수정일</th> <th>수정할래?</th><th>댓글수</th>
+		</tr>
+		
+		<tr th:each="b,status:${blist}"
+			th:class="${status.even}?'hotpink':'skyblue'">
+			<td th:text="${status.index + '--' + status.count + '--' + status.size}"/>
+			<td th:text="${status.first + '--' + status.last + '--' +status.even + '--' + status.odd}"/>
+			<td th:text="${b.bno}"/> 
+			<td [[${b.title}]]/>
+			<td th:text="${b.writer==target?'~타겟찾음~' + b.writer + '#####' :b.writer}"/>
+			<td th:text="${b.content}"/>
+			<td th:text="${#dates.format(b.regdate, 'yyyy-MM-dd')}"/>
+			<td th:text="${#dates.format(b.updatedate, 'yyyy-MM-dd')}"/>
+			<td th:if="${b.writer}">
+				<a href="" th:if="${b.writer==friend}">수정하고싶으면 누르시오</a>
+				<a th:unless="${b.writer==friend}">수정 못한다. 보기만해라</a>
+			</td>
+			<td th:text="${b.replies.size()}">
+				
+			</td>
+		</tr>
+	</table>
+	<script th:inline="javascript">
+		var boardList = [[${blist}]];
+		boardList.forEach(item=>{console.log(item)});		
+	</script>
+</body>
+</html>
+
+
+
+
+
+

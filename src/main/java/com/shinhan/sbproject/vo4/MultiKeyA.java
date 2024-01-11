@@ -1,0 +1,21 @@
+package com.shinhan.sbproject.vo4;
+
+import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class MultiKeyA implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2L;
+	private Integer id1;
+	private Integer id2;
+}

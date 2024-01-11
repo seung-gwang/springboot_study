@@ -1,0 +1,18 @@
+<!DOCTYPE html> 
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>thymeleaf hello</title>
+</head>
+<body>
+	<h1> 승광이는 귀여워~~~ 찹쌀떡~~~~메~~~~~~~롱 ^$^</h1>
+	<h2> 마춉련 숨도 쉬지마 코딩해 빨리 배워 정우 가르쳐 쉬지 마 </h2>
+	<h1 th:text="${greeting}"> 여기에적힐거 </h1>
+	<p th:text="${board.title}">아무것도 안써도 들어감</p>
+	<p th:text="${board.regdate}"></p>
+	
+	<p th:text="${'<h1>' + board.writer + '</h1>'}">문자 그대로 출력</p>
+	<p th:utext="${'<h1>' + board.writer + '</h1>'}">html 태그 적용해서 출력</p>
+	
+</body>
+</html>

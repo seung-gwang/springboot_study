@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,5 +38,6 @@ public class FreeBoardReply {
 	Timestamp updatedate;
 	
 	@ManyToOne //FK : board_bno
+	@JsonIgnore //json 생성시 상호참조 제거 -> 무한 loop에 의한 stack overflow 방지
 	FreeBoard board;
 }
