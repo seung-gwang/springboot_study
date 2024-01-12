@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<p th:text="|1.파라미터 : ${myname}|"/>
+	<p th:text="|2.SessionId : ${myname2}|"/>
+	<p th:text="|3.원래 날짜 : ${now}|"/>
+	<p th:text="|4.날짜 format : ${#dates.format(now, 'yyyy-MM-dd hh:mm:ss')}|"/>
+	
+	<p th:text="|5.숫자 : ${price}|"/>
+	<p th:text="|6.숫자 : ${#numbers.formatInteger(price,3,'COMMA')}|"/>
+	<p th:text="|7.숫자 : ${#numbers.formatDecimal(price,20,10,'POINT')}|"/>
+	
+	<p th:utext="|8.문자 : ${#strings.replace(title,'T', '<b>R</b>')}|"/>
+	<p th:utext="|9.문자 : ${#strings.toUpperCase(title)}|"/>
+	
+	<ul>
+		<li th:each="item:${#strings.listSplit(title, ' ')}">[[${item}]]</li>
+	</ul>
+	
+	<ul>
+		<li th:each="item:${options}">[[${item}]]</li>
+	</ul>
+	
+	<hr>
+	<h1> path 연습 </h1>
+	<ul>
+		<li><a href="http://localhost:7777/freeboard/list">freeboard 레츠고</a> </li>
+		<li><a th:href="@{http://localhost:7777/freeboard/list}">freeboard 레츠고 2</a></li>
+		<li><a th:href="@{freeboard/list}">상대경로 레츠고</a></li>
+		<li><a th:href="@{/freeboard/list}">절대경로 레츠고</a></li>
+		<li><a th:href="@{/freeboard/list(myname=sg)}">절대경로 레츠고(param)</a></li>
+		
+		<li><a th:href="@{~/app2/freeboard/list(myname=용수)}">ContextPath 다른곳으로 LetsGO! - 근데 없지롱?ㅎ</a></li>
+		
+	</ul>
+	
+	<script th:inline="javascript">
+		var arr = /*[[${options}]]*/[];
+		var arr2 = eval('[[${options}]]');
+		
+		console.log(arr);
+		console.log(arr2);
+	</script>
+</body>
+</html>
+
+
+
+

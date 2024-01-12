@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/layout1}">
+
+
+<head>
+<meta charset="UTF-8">
+<title>직원들~</title>
+</head>
+<body>
+	<div class="panel panel-default" layout:fragment="content">
+		<table>
+			<tr th:each="dept:${dlist}">
+				<td th:text="${dept.departmentId}"></td>
+				<td th:text="${dept.departmentName}"></td>
+				<td th:text="${dept.managerId}"></td>
+				<td th:text="${dept.locationId}"></td>
+			</tr>
+		</table>
+
+
+		<table>
+			<tr th:each="emp:${elist}">
+				<td th:text="${emp.firstName}"></td>
+				<td th:text="${emp.lastName}"></td>
+				<td th:text="${emp.email}"></td>
+				<td th:text="${emp.phoneNumber}"></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

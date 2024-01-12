@@ -26,7 +26,7 @@
 			<td th:text="${status.index + '--' + status.count + '--' + status.size}"/>
 			<td th:text="${status.first + '--' + status.last + '--' +status.even + '--' + status.odd}"/>
 			<td th:text="${b.bno}"/> 
-			<td [[${b.title}]]/>
+			<td th:text="${b.title}"/>
 			<td th:text="${b.writer==target?'~타겟찾음~' + b.writer + '#####' :b.writer}"/>
 			<td th:text="${b.content}"/>
 			<td th:text="${#dates.format(b.regdate, 'yyyy-MM-dd')}"/>

@@ -1,6 +1,9 @@
 package com.shinhan.sbproject.controller;
 
+
 import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.shinhan.firstzone.repository.FreeBoardRepository;
 import com.shinhan.sbproject.vo3.FreeBoard;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -17,6 +22,17 @@ import lombok.extern.slf4j.Slf4j;
 public class ThymeleafController {
 	@Autowired
 	FreeBoardRepository brepo;
+	
+	@GetMapping("/hello3")
+	public void f4(Model model, HttpServletRequest request, HttpSession session) {
+		model.addAttribute("myname",  request.getParameter("name"));
+		model.addAttribute("myname2",  session.getId());
+		
+		model.addAttribute("now", new Date());
+		model.addAttribute("price", 12345678);
+		model.addAttribute("title", "TITLETIELTIELTE TEST TEST TEST TEST TEST");
+		model.addAttribute("options", Arrays.asList("AA", "BBB", "CCCC", "I am Happy"));
+	}
 	
 	@GetMapping("freeboard/list")
 	public void fBoardList(Model model) {
@@ -55,3 +71,4 @@ public class ThymeleafController {
 	}
 	
 }
+
